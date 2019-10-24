@@ -1,2 +1,6 @@
 ﻿  Source.cpp
-  Main.vcxproj -> D:\Coding\HopNgu\128-Bits-Data-Type-master\Main\x64\Debug\Main.exe
+D:\Coding\KienTrucMayTinhVaHopNgu\128 Data Type\Main\Main\Source.cpp(30,29): warning C4267:  'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\Coding\KienTrucMayTinhVaHopNgu\128 Data Type\Main\Main\Source.cpp(127,6): warning C4101:  'b': unreferenced local variable
+D:\Coding\KienTrucMayTinhVaHopNgu\128 Data Type\Main\Main\Source.cpp(186,24): warning C4267:  '=': conversion from 'size_t' to 'int', possible loss of data
+D:\Coding\KienTrucMayTinhVaHopNgu\128 Data Type\Main\Main\Source.cpp(161,16): warning C4101:  'n': unreferenced local variable
+  Main.vcxproj -> D:\Coding\KienTrucMayTinhVaHopNgu\128 Data Type\Main\x64\Debug\Main.exe
