@@ -1,5 +1,5 @@
 ﻿  Source.cpp
-D:\Coding\KienTrucMayTinhVaHopNgu\128 Data Type\Main\Main\Source.cpp(40,29): warning C4267:  'initializing': conversion from 'size_t' to 'int', possible loss of data
-D:\Coding\KienTrucMayTinhVaHopNgu\128 Data Type\Main\Main\Source.cpp(133,6): warning C4101:  'b': unreferenced local variable
-D:\Coding\KienTrucMayTinhVaHopNgu\128 Data Type\Main\Main\Source.cpp(181,24): warning C4267:  '=': conversion from 'size_t' to 'int', possible loss of data
+D:\Coding\KienTrucMayTinhVaHopNgu\128 Data Type\Main\Main\Source.cpp(36,29): warning C4267:  'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\Coding\KienTrucMayTinhVaHopNgu\128 Data Type\Main\Main\Source.cpp(217,24): warning C4267:  '=': conversion from 'size_t' to 'int', possible loss of data
+D:\Coding\KienTrucMayTinhVaHopNgu\128 Data Type\Main\Main\Source.cpp(201,10): warning C4101:  'temp': unreferenced local variable
   Main.vcxproj -> D:\Coding\KienTrucMayTinhVaHopNgu\128 Data Type\Main\x64\Debug\Main.exe
