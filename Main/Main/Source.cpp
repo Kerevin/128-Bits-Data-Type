@@ -8,6 +8,17 @@ struct BigBit
 {
 	int data[4];
 };
+
+void printBigBit(BigBit a)
+{
+
+	for (int i = 3; i >= 0; i--)
+	{
+		cout << a.data[i] << endl;
+	}
+	cout << endl;
+}
+
 string divideByTwo(string a)
 {
 	// Phép chia thực hiện như người chia ngoài nháp :D //
@@ -21,7 +32,6 @@ string divideByTwo(string a)
 	}
 	return temp;
 }
-
 
 string multiplyByTwo(string a)
 {
@@ -38,11 +48,6 @@ string multiplyByTwo(string a)
 	return result;
 }
 
-void plusBit(int a[], int& nho)
-{
-
-}
-
 string DecToBin(string a)
 {
 	string basekey = "";
@@ -50,6 +55,7 @@ string DecToBin(string a)
 
 	// Kiểm tra xem có phải số âm hay không //
 	int soam = (a[0] == '-');
+
 	// Khi a chia hết thì sẽ còn một dãy 0 nên lấy mảng basekey để làm base key  //
 	for (int i = 0; i < a.length() - soam; i++)
 		basekey += "0";
@@ -158,29 +164,18 @@ string Bin128ToDec(BigBit a)
 	string s;
 	for (int i = 0; i < 128 /3 + 1 + 1 ; i++)
 		s+= '0';
-	long long int n[4];
-	char* p = ((char*)s.c_str());
-	int i;
-
+	int i, j;
 
 	for (i = 0; i < 128; i++)
 	{
-		int j, carry;
-
-		//carry = (a.data[3] >= 0x80000000);
+		int carry;
 		carry = (a.data[0] >= 0x80000000);
 		// Shift n[] left, doubling it
 		a.data[0] = ((a.data[0] << 1) & 0xFFFFFFFF) + (a.data[1] >= 0x80000000);
 		a.data[1] = ((a.data[1] << 1) & 0xFFFFFFFF) + (a.data[2] >= 0x80000000);
 		a.data[2] = ((a.data[2] << 1) & 0xFFFFFFFF) + (a.data[3] >= 0x80000000);
 		a.data[3] = ((a.data[3] << 1) & 0xFFFFFFFF);
-		/*
-			Phần này của người ta 
-		a.data[3] = ((a.data[3] << 1) & 0xFFFFFFFF) + (a.data[2] >= 0x80000000);
-		a.data[2] = ((a.data[2] << 1) & 0xFFFFFFFF) + (a.data[1] >= 0x80000000);
-		a.data[1] = ((a.data[1] << 1) & 0xFFFFFFFF) + (a.data[0] >= 0x80000000);
-		a.data[0] = ((a.data[0] << 1) & 0xFFFFFFFF);
-		*/
+		
 
 		// Add s[] to itself in decimal, doubling it
 		for (j = s.size() - 2; j >= 0; j--)
@@ -192,39 +187,69 @@ string Bin128ToDec(BigBit a)
 			if (carry)
 			{
 				s[j] -= 10;
-				cout << endl;
 			}
 		}
+
 	}
-	cout << *p << endl;
-	while ((p[0] == '0') && (p < &s[s.size() - 2]))
+	s.pop_back();
+	while (s[0] == '0')
 	{
-		p++;
+		s.erase(0, 1);
 	}
-	
-	return string(p);
+	return s;
 }
 
 
-void printBigBit(BigBit a)
+void plusBit(BigBit a, BigBit b)
 {
-
+	int nho = 0;
+	int x = 0;
+	BigBit c;
+	string temp = "";
 	for (int i = 3; i >= 0; i--)
 	{
-		cout << a.data[i] << endl;
+		// ( X >> (n - 1 - i) ) & 1 : đọc bit 
+		for (int j = 31; j >= 0; j--)
+		{
+			int t = ((a.data[i] >> (31 - j)) & 1) + ((b.data[i] >> (31 - j)) & 1) + nho;
+			if (t == 3)
+			{
+				//c.data[i] = 1;
+				temp.insert(0, "1");
+				nho = 1;
+			}
+				
+			if (t == 2)
+			{
+				//c.data[i] = 0;
+				temp.insert(0, "0");
+				nho = 1;
+			}
+				
+			if (t <= 1)
+			{
+				//c.data[i] = t;
+				temp.insert(0, to_string(t));
+				nho = 0;
+			}				
+		}
 	}
-	cout << endl;
+	c = storeData(temp);
+	printBigBit(c);
 }
 int main()
 {
 	// 4294967296 = 2 ^ 32
 	// 18446744073709551616 = 2 ^ 64
 	// 340282366920938463463374607431768211456 = 2 ^ 128
-	string a = "4294967296";
+	string a = "2";
+	string a1 = "3";
 	string b = DecToBin(a);
 	BigBit c = storeData(b);
-	string d = Bin128ToDec(c);
-	cout << d << endl;
+	BigBit c1 = storeData(DecToBin(a1));
+	printBigBit(c);
+	printBigBit(c1);
+	plusBit(c, c1);
 
 	system("pause");
-} 
+}  
