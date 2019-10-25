@@ -5,6 +5,12 @@ struct BigBit
 	int data[4];
 };
 
+void initializeDefault(BigBit& a)
+{
+	for (int i = 0; i < 4; i++)
+		a.data[i] = 0;
+}
+
 void printBigBit(BigBit a)
 {
 
@@ -42,6 +48,62 @@ string multiplyByTwo(string a)
 	if (sodu != 0)
 		result.insert(0, to_string(sodu));
 	return result;
+}
+
+BigBit plusBit(const BigBit& a, const BigBit& b)
+{
+	int nho = 0;
+	BigBit c;
+	for (int i = 0; i < 4; i++)
+		c.data[i] = 0;
+	for (int i = 3; i >= 0; i--)
+	{
+		// ( X >> (n - 1 - i) ) & 1 : đọc bit 
+		// X = X | (1 << (n - 1 - i )): set bit
+		for (int j = 31; j >= 0; j--)
+		{
+			int t = ((a.data[i] >> (31 - j)) & 1) + ((b.data[i] >> (31 - j)) & 1) + nho;
+			if (t == 3)
+			{
+				c.data[i] = (c.data[i] | (1 << (31 - j)));
+				nho = 1;
+			}
+			else if (t == 2)
+			{
+				nho = 1;
+			}
+
+			else
+			{
+				if (t == 1)
+					c.data[i] = (c.data[i] | (1 << (31 - j)));
+				nho = 0;
+			}
+		}
+	}
+	return c;
+}
+
+
+void onesComplement(BigBit& a)
+{
+	// Bù 1 //
+	for (int i = 3; i >= 0; i--)
+	{
+		for (int j = 31; j >= 0; j--)
+		{
+			a.data[i] = (a.data[i] ^ (1 << (31 - j)));
+		}
+	}
+}
+
+void twosComplement(BigBit& a)
+{
+	// Bù 2 // 
+	BigBit b;
+	initializeDefault(b);
+	b.data[3] = 1;
+	a = plusBit(a, b);
 }
 
 string convertDecToBin(string a)
@@ -92,65 +154,99 @@ string convertDecToBin(string a)
 	return  result;
 }
 
-BigBit plusBit(const BigBit &a,const BigBit &b)
+BigBit minusBit(const BigBit& a, const BigBit& b)
 {
-	int nho = 0;
-	BigBit c;
-	for (int i = 0; i < 4; i++)
-		c.data[i] = 0;
-	for (int i = 3; i >= 0; i--)
+	BigBit temp;
+	temp = b;
+	onesComplement(temp);
+	twosComplement(temp);
+	return plusBit(a, temp);
+}
+int countAmountBit(BigBit a)
+{
+	int result = 0;
+	int index = 0;
+	if (a.data[0] == -1)
 	{
-		// ( X >> (n - 1 - i) ) & 1 : đọc bit 
-		// X = X | (1 << (n - 1 - i )): set bit
-		for (int j = 31; j >= 0; j--)
-		{
-			int t = ((a.data[i] >> (31 - j)) & 1) + ((b.data[i] >> (31 - j)) & 1) + nho;
-			if (t == 3)
-			{
-				c.data[i] = (c.data[i] | (1 << (31 - j)));
-				nho = 1;
-			}
-			else if (t == 2)
-			{
-				nho = 1;
-			}
-
+		onesComplement(a);
+		twosComplement(a);
+	}
+	for (int i = 0; i < 4 && result == 0; i++)
+	{
+		for (int j = 0; j < 32; j++)
+		{ 		
+			if ( ((a.data[i] >> (31 - j)) & 1) == 0)
+				index ++;
 			else
 			{
-				if (t == 1)
-					c.data[i] = (c.data[i] | (1 << (31 - j)));
-				nho = 0;
+				result = 1;
+				break;	
 			}
 		}
 	}
-	return c;
+	return (128 - index);
 }
-
-void initializeDefault(BigBit& a)
+BigBit merge(BigBit& a, BigBit& q)
 {
-	for (int i = 0; i < 4; i++)
-		a.data[i] = 0;
-}
-
-void onesComplement(BigBit& a)
-{
-	// Bù 1 //
-	for (int i = 3; i >= 0; i--)
+	BigBit temp;
+	initializeDefault(temp);
+	int n1 = countAmountBit(a);
+	int n2 = countAmountBit(q);
+	int k = 31;
+	int i = 3;
+	for (int j = n1; j > 0; j--)
 	{
-		for (int j = 31; j >= 0; j--)
+		if ( ((a.data[3 - (j / 32)] >> (n1 - j)) & 1) == 1)
 		{
-			a.data[i] = (a.data[i] ^ (1 << (31 - j)));
+			temp.data[i] = (temp.data[i] | (1 << (31 - k)));
+		}
+			
+		k--;
+		if (k == -1)
+		{
+			k = 31;
+			i--;
 		}
 	}
+	for (int j = n2; j > 0; j--)
+	{
+		if ( ((q.data[3 - (j / 32)] >> (n2 - j)) & 1) == 1)
+			temp.data[i] = (temp.data[i] | (1 << (31 - k)));
+		k--;
+		if (k == -1)
+		{
+			k = 31;
+			i--;
+		}
+	}
+
+	
+	return temp;
 }
 
-void twosComplement(BigBit& a)
+void ShiftRight(BigBit& a, BigBit& q, int& lastBit)
 {
-	// Bù 2 // 
-	BigBit b;
-	initializeDefault(b);
-	b.data[3] = 1;
-	a = plusBit(a, b);
+	BigBit temp;
+	lastBit = ((a.data[3] >> (31)) & 1);
+	initializeDefault(temp);
+}
+BigBit multiplyBit(BigBit m,BigBit q)
+{
+	// Thuật toán nhân cải tiến //
+	BigBit a;
+	initializeDefault(a);
+	int lastBit = 0;
+	int k = 127; 
+	while (k >= 0)
+	{
+		if ( ((q.data[3] >> (0)) & 1) == 1 && lastBit == 0)
+			a = minusBit(a, q);
+		else if ( ((q.data[3] >> (0)) & 1) == 0 && lastBit == 1)
+			a = plusBit(a, q);
+		ShiftRight(a, q, lastBit);
+		k--;
+	}
+	return a;
 }
 
 
@@ -184,7 +280,6 @@ BigBit storeData(string a)
 	}
 	return result;
 }
-
 
 
 string convertBinToDec(BigBit a)
@@ -236,6 +331,8 @@ string convertBinToDec(BigBit a)
 	}
 	if (sign == -1)
 		s.insert(0, "-");
+	if (s.size() == 0)
+		s.push_back('0');
 	return s;
 }
 
@@ -250,17 +347,18 @@ int main()
 
 	// 340282366920938463463374607431768211456 = 2 ^ 128
 	
-	string a = "-3";
-	string a1 = "2";
+	string a = "3";
+	string a1 = "2"; 
 	BigBit c = storeData(a);
 	BigBit c1 = storeData(a1);
-
-	//printBigBit(c);
+	printBigBit(merge(c, c1));
+	cout << endl;
+	//
 	//cout << convertBinToDec(c) << endl;
 	//printBigBit(c1);
 	//printBigBit(plusBit(c, c1));
-	cout << a << " + (" << a1 << ") = ";
-	cout << convertBinToDec(plusBit(c, c1)) << endl;
+	cout << a << " - (" << a1 << ") = ";
+	cout << convertBinToDec(minusBit(c, c1)) << endl;
 	
 	system("pause");
 }   

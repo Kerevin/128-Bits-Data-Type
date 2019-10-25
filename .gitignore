@@ -1,4 +1,6 @@
 .vs/
+.vs
+ipch/
 Debug/
 x64/
 # Prerequisites
