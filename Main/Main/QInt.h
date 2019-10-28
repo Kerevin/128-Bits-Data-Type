@@ -11,22 +11,35 @@ class QInt
 private:
 	int data[4];
 	string number;
+	string dividedByTwo(string);
+	void storeData();
 public:
 	QInt();
 	QInt(string);
 	~QInt();
 
 	void printData();
-	void storeData();
-	void inputNumber(string);
-	void inputNumber();
+	
+	void 
 
-	void divideByTwo();
-	void multiplyByTwo();
+	void SHR(int n);
+	void SHL(int n);
+	void ROR(int n);
+	void ROL(int n);
 
+	int countAmountBits();
 
-	void convertDecToBin();
+	string convertDecToBin();
 	void convertBinToDec();
 
 	QInt operator+ (const QInt& b); 
+	QInt operator- (const QInt& b);
+	QInt operator* (const QInt& b);
+	QInt operator/ (const QInt& b);
+
+	void operator& (const QInt& b);
+	void operator| (const QInt& b);
+	void operator^ (const QInt& b);
+	void operator~ ();
+
 };
