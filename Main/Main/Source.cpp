@@ -1,5 +1,5 @@
 ﻿#include "QInt.h"
-#include <cmath>
+
 struct BigBit
 {
 	int data[4];
@@ -119,7 +119,6 @@ string convertBinToDec(BigBit a)
 	if (sign == -1)
 	{
 		// Âm sang dương: bù 1 rồi bù 2 như dương sang âm //
-		BigBit temp;
 		onesComplement(a);
 		twosComplement(a);
 	}
@@ -199,9 +198,7 @@ BigBit xorBit(BigBit& a, BigBit& b)
 
 void notBit(BigBit& a)
 {
-	BigBit b;
-	BigBit result;
-	initializeDefault(result);
+
 	for (int i = 3; i >= 0; i--)
 		a.data[i] = ~a.data[i];
 
@@ -322,6 +319,39 @@ void ROR(BigBit& a)
 		a.data[0] = a.data[3] ^ 0x8000000;
 }
 
+bool GT(BigBit& a, BigBit& b)
+{
+	// Greater than //
+
+	BigBit result = minusBit(a, b);
+	return (result.data[0] >= 0 && result.data[1] >= 0 && result.data[2] >= 0 && result.data[3] > 0);
+}
+bool GET(BigBit& a, BigBit& b)
+{
+	// Greater and equal than //
+
+	BigBit result = minusBit(a, b);
+	return (result.data[0] >= 0 && result.data[1] >= 0 && result.data[2] >= 0 && result.data[3] >= 0);
+}
+bool ST(BigBit& a, BigBit& b)
+{
+	// Smaller than //
+
+	BigBit result = minusBit(a, b);
+	return (result.data[0] < 0 && result.data[1] < 0 && result.data[2] < 0 && result.data[3] < 0);
+}
+bool SET(BigBit& a, BigBit& b)
+{
+	// Smaller than or equal //
+
+	BigBit result = minusBit(a, b);
+	return (result.data[0] <= 0 && result.data[1] <= 0 && result.data[2] <= 0 && result.data[3] <= 0);
+}
+bool Equal(BigBit& a, BigBit& b)
+{
+	BigBit result = minusBit(a, b);
+	return (result.data[0] == 0 && result.data[1] == 0 && result.data[2] == 0 && result.data[3] == 0);
+}
 BigBit merge1(BigBit& a, BigBit& q)
 {
 	BigBit temp;
@@ -409,8 +439,7 @@ BigBit multiplyBit(BigBit q,BigBit m)
 		ShiftRight(a, q, lastBit, n);
 		k--;
 	}
-	printBigBit(a);
-	printBigBit(q);
+
 	return join(a, q, n);
 }
 
@@ -510,20 +539,31 @@ int main()
 
 	// 340282366920938463463374607431768211456 = 2 ^ 128
 	
-	string a ="3";
-	string a1 = "3"; 
+	/*
+	string a ="-1";
+	string a1 = "-3"; 
 	BigBit c = storeData(a);
 	BigBit c1 = storeData(a1);
+	cout << convertDecToBin(a);
 	printBigBit(c);
 	cout << endl;
 	printBigBit(c1);
 	cout << endl;
 
-	ROR(c);
-	printBigBit(c);
-	cout << convertBinToDec(c) ;
 
-	//cout << endl;
+
+	cout << ST(c, c1) ;
+	*/
+
+	
+	QInt a("16");
+	QInt b("16");
+	//QInt c = a;
+	//c.printData();
+	//cout << a.convertDecToBin() << endl;
+
+	string dec = QInt::convertHexToDec("1A");
+	cout << dec << endl;
 	cout << endl;
 	system("pause");
 }   

@@ -2,7 +2,7 @@
 #include <iostream>
 #include <string>
 #include <cstring>
-#include <math.h>
+#include <cmath>
 using namespace std;
 
 
@@ -11,35 +11,55 @@ class QInt
 private:
 	int data[4];
 	string number;
+
 	string dividedByTwo(string);
-	void storeData();
+	void storeToQInt();
+	static QInt convertToQInt(string bin);
+	QInt join(QInt &a,QInt &q, int n);
+	void split(QInt& join, QInt &a, QInt& q, int n);
+	void ShiftRight(QInt &a, QInt& q, int& lastBit, int n);
+	string convertToStoreData();
+	void executeTwosComplenment();
 public:
 	QInt();
 	QInt(string);
+	QInt(QInt const &);
 	~QInt();
-
-	void printData();
 	
-	void 
+	void printData();
+	void print();
 
-	void SHR(int n);
-	void SHL(int n);
-	void ROR(int n);
-	void ROL(int n);
+	QInt ROR(int n);
+	QInt ROL(int n);
+	QInt operator>> (int n);
+	QInt operator<< (int n);
 
 	int countAmountBits();
 
 	string convertDecToBin();
-	void convertBinToDec();
+	string convertBinToHex();
+	string convertQIntToDec();
+	static string convertBinToDec(string bin);
+	static string convertDecToHex(string dec);
+	static string convertHexToBin(string hex);
+	static string convertHexToDec(string hex);
+	
 
-	QInt operator+ (const QInt& b); 
-	QInt operator- (const QInt& b);
-	QInt operator* (const QInt& b);
-	QInt operator/ (const QInt& b);
+	QInt operator+ (QInt& const b);
+	QInt operator- (QInt& const b);
+	QInt operator* (QInt& const q);
+	QInt operator/ (QInt& const m);
 
-	void operator& (const QInt& b);
-	void operator| (const QInt& b);
-	void operator^ (const QInt& b);
-	void operator~ ();
+	QInt operator& (QInt& const b);
+	QInt operator| (QInt& const b);
+	QInt operator^ (QInt& const b);
+	QInt operator~ ();
+
+
+	bool operator> (QInt& const b);
+	bool operator< (QInt& const b);
+	bool operator>= (QInt& const b);
+	bool operator<= (QInt& const b);
+	bool operator== (QInt& const b);
 
 };

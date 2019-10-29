@@ -1,6 +1,44 @@
-﻿  Source.cpp
-D:\Coding\KienTrucMayTinhVaHopNgu\128 Data Type\Main\Main\Source.cpp(44,29): warning C4267:  'initializing': conversion from 'size_t' to 'int', possible loss of data
-D:\Coding\KienTrucMayTinhVaHopNgu\128 Data Type\Main\Main\Source.cpp(139,24): warning C4267:  '=': conversion from 'size_t' to 'int', possible loss of data
-D:\Coding\KienTrucMayTinhVaHopNgu\128 Data Type\Main\Main\Source.cpp(123,10): warning C4101:  'temp': unreferenced local variable
-D:\Coding\KienTrucMayTinhVaHopNgu\128 Data Type\Main\Main\Source.cpp(203,9): warning C4101:  'b': unreferenced local variable
+﻿  QInt.cpp
+D:\Coding\KienTrucMayTinhVaHopNgu\128 Data Type\Main\Main\QInt.h(49,31): warning C4227:  anachronism used: qualifiers on reference are ignored
+D:\Coding\KienTrucMayTinhVaHopNgu\128 Data Type\Main\Main\QInt.h(50,31): warning C4227:  anachronism used: qualifiers on reference are ignored
+D:\Coding\KienTrucMayTinhVaHopNgu\128 Data Type\Main\Main\QInt.h(51,31): warning C4227:  anachronism used: qualifiers on reference are ignored
+D:\Coding\KienTrucMayTinhVaHopNgu\128 Data Type\Main\Main\QInt.h(52,31): warning C4227:  anachronism used: qualifiers on reference are ignored
+D:\Coding\KienTrucMayTinhVaHopNgu\128 Data Type\Main\Main\QInt.h(54,31): warning C4227:  anachronism used: qualifiers on reference are ignored
+D:\Coding\KienTrucMayTinhVaHopNgu\128 Data Type\Main\Main\QInt.h(55,31): warning C4227:  anachronism used: qualifiers on reference are ignored
+D:\Coding\KienTrucMayTinhVaHopNgu\128 Data Type\Main\Main\QInt.h(56,31): warning C4227:  anachronism used: qualifiers on reference are ignored
+D:\Coding\KienTrucMayTinhVaHopNgu\128 Data Type\Main\Main\QInt.h(60,31): warning C4227:  anachronism used: qualifiers on reference are ignored
+D:\Coding\KienTrucMayTinhVaHopNgu\128 Data Type\Main\Main\QInt.h(61,31): warning C4227:  anachronism used: qualifiers on reference are ignored
+D:\Coding\KienTrucMayTinhVaHopNgu\128 Data Type\Main\Main\QInt.h(62,32): warning C4227:  anachronism used: qualifiers on reference are ignored
+D:\Coding\KienTrucMayTinhVaHopNgu\128 Data Type\Main\Main\QInt.h(63,32): warning C4227:  anachronism used: qualifiers on reference are ignored
+D:\Coding\KienTrucMayTinhVaHopNgu\128 Data Type\Main\Main\QInt.h(64,32): warning C4227:  anachronism used: qualifiers on reference are ignored
+D:\Coding\KienTrucMayTinhVaHopNgu\128 Data Type\Main\Main\QInt.cpp(251,24): warning C4267:  '=': conversion from 'size_t' to 'int', possible loss of data
+D:\Coding\KienTrucMayTinhVaHopNgu\128 Data Type\Main\Main\QInt.cpp(341,24): warning C4267:  '=': conversion from 'size_t' to 'int', possible loss of data
+D:\Coding\KienTrucMayTinhVaHopNgu\128 Data Type\Main\Main\QInt.cpp(397,35): warning C4227:  anachronism used: qualifiers on reference are ignored
+D:\Coding\KienTrucMayTinhVaHopNgu\128 Data Type\Main\Main\QInt.cpp(429,36): warning C4227:  anachronism used: qualifiers on reference are ignored
+D:\Coding\KienTrucMayTinhVaHopNgu\128 Data Type\Main\Main\QInt.cpp(437,36): warning C4227:  anachronism used: qualifiers on reference are ignored
+D:\Coding\KienTrucMayTinhVaHopNgu\128 Data Type\Main\Main\QInt.cpp(467,36): warning C4227:  anachronism used: qualifiers on reference are ignored
+D:\Coding\KienTrucMayTinhVaHopNgu\128 Data Type\Main\Main\QInt.cpp(518,36): warning C4227:  anachronism used: qualifiers on reference are ignored
+D:\Coding\KienTrucMayTinhVaHopNgu\128 Data Type\Main\Main\QInt.cpp(526,36): warning C4227:  anachronism used: qualifiers on reference are ignored
+D:\Coding\KienTrucMayTinhVaHopNgu\128 Data Type\Main\Main\QInt.cpp(535,36): warning C4227:  anachronism used: qualifiers on reference are ignored
+D:\Coding\KienTrucMayTinhVaHopNgu\128 Data Type\Main\Main\QInt.cpp(611,36): warning C4227:  anachronism used: qualifiers on reference are ignored
+D:\Coding\KienTrucMayTinhVaHopNgu\128 Data Type\Main\Main\QInt.cpp(619,36): warning C4227:  anachronism used: qualifiers on reference are ignored
+D:\Coding\KienTrucMayTinhVaHopNgu\128 Data Type\Main\Main\QInt.cpp(626,37): warning C4227:  anachronism used: qualifiers on reference are ignored
+D:\Coding\KienTrucMayTinhVaHopNgu\128 Data Type\Main\Main\QInt.cpp(632,37): warning C4227:  anachronism used: qualifiers on reference are ignored
+  Source.cpp
+D:\Coding\KienTrucMayTinhVaHopNgu\128 Data Type\Main\Main\QInt.cpp(639,37): warning C4227:  anachronism used: qualifiers on reference are ignored
+D:\Coding\KienTrucMayTinhVaHopNgu\128 Data Type\Main\Main\QInt.h(49,31): warning C4227:  anachronism used: qualifiers on reference are ignored
+D:\Coding\KienTrucMayTinhVaHopNgu\128 Data Type\Main\Main\QInt.h(50,31): warning C4227:  anachronism used: qualifiers on reference are ignored
+D:\Coding\KienTrucMayTinhVaHopNgu\128 Data Type\Main\Main\QInt.h(51,31): warning C4227:  anachronism used: qualifiers on reference are ignored
+D:\Coding\KienTrucMayTinhVaHopNgu\128 Data Type\Main\Main\QInt.h(52,31): warning C4227:  anachronism used: qualifiers on reference are ignored
+D:\Coding\KienTrucMayTinhVaHopNgu\128 Data Type\Main\Main\QInt.h(54,31): warning C4227:  anachronism used: qualifiers on reference are ignored
+D:\Coding\KienTrucMayTinhVaHopNgu\128 Data Type\Main\Main\QInt.h(55,31): warning C4227:  anachronism used: qualifiers on reference are ignored
+D:\Coding\KienTrucMayTinhVaHopNgu\128 Data Type\Main\Main\QInt.h(56,31): warning C4227:  anachronism used: qualifiers on reference are ignored
+D:\Coding\KienTrucMayTinhVaHopNgu\128 Data Type\Main\Main\QInt.h(60,31): warning C4227:  anachronism used: qualifiers on reference are ignored
+D:\Coding\KienTrucMayTinhVaHopNgu\128 Data Type\Main\Main\QInt.h(61,31): warning C4227:  anachronism used: qualifiers on reference are ignored
+D:\Coding\KienTrucMayTinhVaHopNgu\128 Data Type\Main\Main\QInt.h(62,32): warning C4227:  anachronism used: qualifiers on reference are ignored
+D:\Coding\KienTrucMayTinhVaHopNgu\128 Data Type\Main\Main\QInt.h(63,32): warning C4227:  anachronism used: qualifiers on reference are ignored
+D:\Coding\KienTrucMayTinhVaHopNgu\128 Data Type\Main\Main\QInt.h(64,32): warning C4227:  anachronism used: qualifiers on reference are ignored
+D:\Coding\KienTrucMayTinhVaHopNgu\128 Data Type\Main\Main\Source.cpp(43,29): warning C4267:  'initializing': conversion from 'size_t' to 'int', possible loss of data
+  Generating Code...
+D:\Coding\KienTrucMayTinhVaHopNgu\128 Data Type\Main\Main\Source.cpp(137,24): warning C4267:  '=': conversion from 'size_t' to 'int', possible loss of data
   Main.vcxproj -> D:\Coding\KienTrucMayTinhVaHopNgu\128 Data Type\Main\x64\Debug\Main.exe
