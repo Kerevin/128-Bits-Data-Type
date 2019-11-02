@@ -1,19 +1,13 @@
 ﻿#include "QInt.h"
 
 
-QInt::QInt()
+QInt::QInt() : QNumber()
 {
-	for (int i = 3; i >= 0; i--)
-		data[i] = 0;
-	number = "0";
-}
-QInt::QInt(string a) 
-{
-	for (int i = 3; i >= 0; i--)
-		this->data[i] = 0;
-	this->number = a;
-	this->storeToQInt();
 	
+}
+QInt::QInt(string a) : QNumber(a)
+{
+	this->storeToQInt();
 }
 QInt::QInt(QInt const& p)
 {
@@ -44,9 +38,7 @@ string QInt::dividedByTwo(string a)
 
 void QInt::printData() 
 {
-	for (int i = 3; i >= 0; i--)
-		cout << this->data[i] << endl;
-	cout << endl;
+	QNumber::printDataMember();
 }
 void QInt::print()
 {
@@ -149,8 +141,10 @@ int QInt::countAmountBits()
 
 
 //		Converting		//
-QInt QInt::convertToQInt(string a)
+QInt QInt::convertBinToQInt(string a)
 {
+	// Chuyển binary sang QInt //
+
 	while (a.size() < 128)
 	{
 		a.insert(0, "0");
@@ -181,7 +175,7 @@ string QInt::convertQIntToDec()
 	for (int i = 0; i < 128 / 3 + 1 + 1; i++)
 		s += '0';
 	int i, j;
-	QInt a = *this;
+	QInt a (*this);
 	int sign = a.data[0];
 	if (sign == -1)
 	{
@@ -282,7 +276,8 @@ string QInt::convertDecToBin()
 		for (int j = 0; j < 32; j++)
 			result += to_string((this->data[i] >> (31 - j)) & 1);
 	}
-	return result;
+
+	return reduceZeroInBin(result);
 }
 string QInt::convertDecToHex(string dec)
 {
@@ -309,7 +304,13 @@ string QInt::convertBinToHex()
 		i -= 4;
 	}
 	reverse(result.begin(), result.end());
-	return result;
+	
+	return reduceZeroInBin(result);
+}
+string QInt::convertBinToHex(string bin)
+{
+	QInt a= QInt::convertBinToQInt(bin);
+	return a.convertBinToHex();
 }
 string QInt::convertBinToDec(string bin)
 {
@@ -318,7 +319,7 @@ string QInt::convertBinToDec(string bin)
 		s += '0';
 	int i, j;
 	QInt a;
-	a = convertToQInt(bin);
+	a = convertBinToQInt(bin);
 	int sign = a.data[0];
 	if (sign == -1)
 	{
@@ -360,30 +361,28 @@ string QInt::convertBinToDec(string bin)
 		s.insert(0, "-");
 	if (s.size() == 0)
 		s.push_back('0');
-	
+	a.number = s;
 	return s;
 }
 string QInt::convertHexToBin(string hex)
 {
-	while (hex.size() < 32)
-		hex.insert(0, "0");
+
 	string binaryResult = "";
 
-	for (int i = 0; i < 32; i++)
+	for (int i = 0; i < hex.size(); i++)
 	{
 		string a;
 		if (hex[i] > '9')
-		{
 			a = QInt(to_string(int(hex[i]) % 65 + 10)).convertDecToBin();
-
-		}
 		else
-		{
 			a = QInt(hex.substr(i, 1)).convertDecToBin();
-		}
-		
-		binaryResult += a.substr(a.size() - 4);
+		while (a.size() < 4)
+			a.insert(0, "0");
+		binaryResult += a;
 	}
+
+	while (binaryResult[0] == '0')
+		binaryResult.erase(0, 1);
 	return binaryResult;
 }
 string QInt::convertHexToDec(string hex)
@@ -391,7 +390,11 @@ string QInt::convertHexToDec(string hex)
 	string binaryResult = convertHexToBin(hex);
 	return convertBinToDec(binaryResult);
 }
-
+string QInt::convertDecToBin(string dec)
+{
+	QInt a(dec);
+	return a.convertDecToBin();
+}
 
 //		Operator		//
 QInt QInt::operator+(QInt& const b)
@@ -639,4 +642,13 @@ bool QInt::operator== (QInt& const b) {
 	QInt result = (*this) - b;
 	return (result.data[0] == 0 && result.data[1] == 0 && result.data[2] == 0 && result.data[3] == 0);
 
+}
+QInt& QInt::operator= (const QInt&  b)
+{
+	if (this == &b)
+		return *this;
+	for (int i = 0; i <= 3; i++)
+		this->data[i] = b.data[i];
+	this->number = b.number;
+	return *this;
 }

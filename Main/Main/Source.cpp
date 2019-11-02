@@ -1,4 +1,4 @@
-﻿#include "QInt.h"
+﻿#include "FIle.h"
 
 struct BigBit
 {
@@ -539,31 +539,10 @@ int main()
 
 	// 340282366920938463463374607431768211456 = 2 ^ 128
 	
-	/*
-	string a ="-1";
-	string a1 = "-3"; 
-	BigBit c = storeData(a);
-	BigBit c1 = storeData(a1);
-	cout << convertDecToBin(a);
-	printBigBit(c);
-	cout << endl;
-	printBigBit(c1);
-	cout << endl;
-
-
-
-	cout << ST(c, c1) ;
-	*/
-
 	
-	QInt a("16");
-	QInt b("16");
-	//QInt c = a;
-	//c.printData();
-	//cout << a.convertDecToBin() << endl;
+	File a(1, "input.txt", "output.txt");
+	a.readFile();
 
-	string dec = QInt::convertHexToDec("1A");
-	cout << dec << endl;
 	cout << endl;
 	system("pause");
-}   
+}		
