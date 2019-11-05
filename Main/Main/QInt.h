@@ -18,12 +18,11 @@ private:
 
 public:
 	QInt();
-	QInt(string);
+	QInt(string dec);
 	QInt(QInt const &);
 	~QInt();
 
 	static string dividedByTwo(string);
-	static QInt convertBinToQInt(string bin);
 	virtual void printData();
 	virtual void print();
 
@@ -35,6 +34,7 @@ public:
 	virtual int countAmountBits();
 	virtual void executeTwosComplenment();
 
+	static QInt convertBinToQInt(string bin);
 	virtual string convertDecToBin();
 	virtual string convertBinToHex();
 	virtual string convertQIntToDec();

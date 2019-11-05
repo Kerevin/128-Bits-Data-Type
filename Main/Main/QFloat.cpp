@@ -228,9 +228,9 @@ string QFloat::convertBinToDec(string& bin)
 {
 	bool sign = bin[0] == '1';
 
-	int exponent = stoi(bin.substr(1, 15));// Phần mũ
+	int exponent = stoi(QInt::convertBinToDec(bin.substr(1, 15)));// Phần mũ
 	exponent -= 16384;
-
+	
 	string mantissa = bin.substr(16); // Phần định trị
 
 	while (mantissa[mantissa.size() - 1] == '0')

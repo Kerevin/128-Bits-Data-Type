@@ -5,8 +5,8 @@
 class File
 {
 private:
-	fstream readData;
-	fstream writeData;
+	ifstream readData;
+	ofstream writeData;
 	int type;
 
 public:
@@ -18,9 +18,11 @@ public:
 	}
 	File(int type, string fileInput, string fileOutput)
 	{
+		
 		this->type = type;
-		readData.open(fileInput, ios::in);
-		writeData.open(fileOutput, ios::out);
+		readData.open(fileInput);
+		writeData.open(fileOutput);
+
 	}
 	~File()
 	{
@@ -29,12 +31,12 @@ public:
 	}
 
 
-	void convert(vector <string> s)
+	void convert(vector <string>& s)
 	{
 		string result;
-		if (type == 1)
+		if (this->type == 1)
 		{
-			QInt p;
+		
 			// Chuyển hệ 2 sang hệ X 
 			if (s[0] == "2")
 			{
@@ -62,75 +64,77 @@ public:
 		}
 		else
 		{
-			QFloat p;
+
 			// Chuyển hệ 2 sang hệ X 
 			if (s[0] == "2")
 			{
 				if (s[1] == "10")
 					result = QFloat::convertBinToDec(s[2]);
-
-				// Chuyển hệ 10 sang hệ X
-				else if (s[0] == "10")
-				{
-					if (s[1] == "2")
-						result = QFloat::convertDecToBin(s[2]);
-
-				}
 			}
+				// Chuyển hệ 10 sang hệ X
+			else if (s[0] == "10")
+			{
+				if (s[1] == "2")
+					result = QFloat::convertDecToBin(s[2]);
+
+			}
+			
 		}
 
 		writeFile(result);
 	}
 
-	void calculate(vector <string> s)
+	void calculate(vector <string>& s)
 	{
 		QInt result;
-		QInt a, b;
+		QInt *a, *b;
 		int comparision = -1;
 		if (s[0] == "2")
 		{
 			// Số scan vào là nhị phân //
-			a = QInt::convertBinToQInt(s[1]);
-			b = QInt::convertBinToQInt(s[3]);
+			a = new QInt(QInt::convertBinToQInt(s[1]));
+			b = new QInt(QInt::convertBinToQInt(s[3]));
+			//a =  QInt::convertBinToQInt(s[1]);
+			//b =  QInt::convertBinToQInt(s[3]);
 		}
 		else if (s[0] == "16")
 		{
 			// Số scan vào là thập lục phân //
-			a = QInt (QInt::convertHexToDec(s[1]));
-			b = QInt (QInt::convertHexToDec(s[3]));
+			a = new QInt (QInt::convertHexToDec(s[1]));
+			b = new QInt (QInt::convertHexToDec(s[3]));
 		}
 		else
 		{
 			// Số scan vào là thập phân //
-			a = QInt((s[1]));
-			b = QInt((s[3]));
+			a = new QInt((s[1]));
+			b = new QInt((s[3]));
 		}
 		switch (s[2][0])
 		{
 		case '+':
-			result = a + b;
+			result = (*a) + (*b);
 			break;
 		case '-':
-			result = a - b;
+			result = (*a) - (*b);
 			break;
 		case '*':
-			result = a * b;
+			result = (*a) * (*b);
 			break;
 		case '/':
-			result = a / b;
+			result = (*a) / (*b);
 			break;
 		case '>':
 		{
 			if (s[2].size() > 1)
 			{
 				if (s[2][1] == '>')
-					result = a >> stoi(s[3]);
+					result = (*a) >> stoi(s[3]);
 				else
-					comparision = a >= b;
+					comparision = (*a) >= (*b);
 			}
 			
 			else	
-				comparision = a > b;
+				comparision = (*a) > (*b);
 			break;
 		}
 		case '<':
@@ -138,39 +142,39 @@ public:
 			if (s[2].size() > 1)
 			{
 				if (s[2][1] == '<')
-					result = a << stoi(s[3]);
+					result = (*a) << stoi(s[3]);
 				else
-					comparision = a <= b;
+					comparision = (*a) <= (*b);
 			}
 
 			else
-				comparision = a < b;
+				comparision = (*a) < (*b);
 			break;
 		}
 		case '=':
 		{
 			if (s[2][1] == '=')
-				comparision = a == b;
+				comparision = (*a) == (*b);
 			break;
 		}
 		case '&':
 		{
-			result = a & b;
+			result = (*a) & (*b);
 			break;
 		}
 		case '|':
 		{
-			result = a | b;
+			result = (*a) | (*b);
 			break;
 		}
 		case '^':
 		{
-			result = a ^ b;
+			result = (*a) ^ (*b);
 			break;
 		}
 		case '~':
 		{
-			result = ~a;
+			result = ~(*a);
 			break;
 		}
 		default:
@@ -195,7 +199,7 @@ public:
 			else
 				writeFile(result.convertBinToHex());
 		}
-			
+		delete a, b;
 	}
 
 	void preProcess(vector <string> s)
