@@ -216,6 +216,28 @@ color: rgb(255, 255, 255);</string>
        <string>Convert To Bin</string>
       </property>
      </widget>
+     <widget class="QPushButton" name="not_i_3">
+      <property name="geometry">
+       <rect>
+        <x>660</x>
+        <y>670</y>
+        <width>81</width>
+        <height>81</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>15</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(42, 42, 42);
+color: rgb(255, 85, 0);</string>
+      </property>
+      <property name="text">
+       <string>AC</string>
+      </property>
+     </widget>
      <zorder>switchtoint</zorder>
      <zorder>label_6</zorder>
      <zorder>label_7</zorder>
@@ -225,6 +247,7 @@ color: rgb(255, 255, 255);</string>
      <zorder>decToBin_f</zorder>
      <zorder>binScreen_f</zorder>
      <zorder>decScreen_f</zorder>
+     <zorder>not_i_3</zorder>
     </widget>
     <widget class="QWidget" name="int_2">
      <widget class="QPushButton" name="switchtofloat">
@@ -713,6 +736,28 @@ color: rgb(255, 255, 255);</string>
        <string>NOT</string>
       </property>
      </widget>
+     <widget class="QPushButton" name="not_i_2">
+      <property name="geometry">
+       <rect>
+        <x>180</x>
+        <y>670</y>
+        <width>81</width>
+        <height>81</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>15</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(42, 42, 42);
+color: rgb(255, 85, 0);</string>
+      </property>
+      <property name="text">
+       <string>AC</string>
+      </property>
+     </widget>
      <zorder>switchtofloat</zorder>
      <zorder>xoayPhai</zorder>
      <zorder>xoayTrai</zorder>
@@ -736,6 +781,7 @@ color: rgb(255, 255, 255);</string>
      <zorder>decScreen_i</zorder>
      <zorder>hexScreen_i</zorder>
      <zorder>not_i</zorder>
+     <zorder>not_i_2</zorder>
     </widget>
    </widget>
   </widget>

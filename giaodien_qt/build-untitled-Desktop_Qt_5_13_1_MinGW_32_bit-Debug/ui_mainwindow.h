@@ -35,6 +35,7 @@ public:
     QLabel *label_9;
     QPushButton *binToDec_f;
     QPushButton *decToBin_f;
+    QPushButton *not_i_3;
     QWidget *int_2;
     QPushButton *switchtofloat;
     QLabel *label;
@@ -59,6 +60,7 @@ public:
     QPushButton *hexToDec_i;
     QLabel *label_5;
     QPushButton *not_i;
+    QPushButton *not_i_2;
 
     void setupUi(QMainWindow *MainWindow)
     {
@@ -126,6 +128,14 @@ public:
         decToBin_f->setFont(font1);
         decToBin_f->setStyleSheet(QString::fromUtf8("background-color: rgb(42, 42, 42);\n"
 "color: rgb(255, 255, 255);"));
+        not_i_3 = new QPushButton(float_2);
+        not_i_3->setObjectName(QString::fromUtf8("not_i_3"));
+        not_i_3->setGeometry(QRect(660, 670, 81, 81));
+        QFont font2;
+        font2.setPointSize(15);
+        not_i_3->setFont(font2);
+        not_i_3->setStyleSheet(QString::fromUtf8("background-color: rgb(42, 42, 42);\n"
+"color: rgb(255, 85, 0);"));
         calculator->addWidget(float_2);
         switchtoint->raise();
         label_6->raise();
@@ -136,6 +146,7 @@ public:
         decToBin_f->raise();
         binScreen_f->raise();
         decScreen_f->raise();
+        not_i_3->raise();
         int_2 = new QWidget();
         int_2->setObjectName(QString::fromUtf8("int_2"));
         switchtofloat = new QPushButton(int_2);
@@ -183,8 +194,6 @@ public:
         equalBin_i = new QPushButton(int_2);
         equalBin_i->setObjectName(QString::fromUtf8("equalBin_i"));
         equalBin_i->setGeometry(QRect(870, 110, 51, 51));
-        QFont font2;
-        font2.setPointSize(15);
         equalBin_i->setFont(font2);
         equalBin_i->setStyleSheet(QString::fromUtf8("background-color: rgb(42, 42, 42);\n"
 "color: rgb(255, 255, 255);"));
@@ -270,6 +279,12 @@ public:
         not_i->setFont(font2);
         not_i->setStyleSheet(QString::fromUtf8("background-color: rgb(42, 42, 42);\n"
 "color: rgb(255, 255, 255);"));
+        not_i_2 = new QPushButton(int_2);
+        not_i_2->setObjectName(QString::fromUtf8("not_i_2"));
+        not_i_2->setGeometry(QRect(180, 670, 81, 81));
+        not_i_2->setFont(font2);
+        not_i_2->setStyleSheet(QString::fromUtf8("background-color: rgb(42, 42, 42);\n"
+"color: rgb(255, 85, 0);"));
         calculator->addWidget(int_2);
         switchtofloat->raise();
         xoayPhai->raise();
@@ -294,6 +309,7 @@ public:
         decScreen_i->raise();
         hexScreen_i->raise();
         not_i->raise();
+        not_i_2->raise();
         MainWindow->setCentralWidget(centralwidget);
 
         retranslateUi(MainWindow);
@@ -315,6 +331,7 @@ public:
         label_9->setText(QCoreApplication::translate("MainWindow", "Decimal", nullptr));
         binToDec_f->setText(QCoreApplication::translate("MainWindow", "Convert To Dec", nullptr));
         decToBin_f->setText(QCoreApplication::translate("MainWindow", "Convert To Bin", nullptr));
+        not_i_3->setText(QCoreApplication::translate("MainWindow", "AC", nullptr));
         switchtofloat->setText(QCoreApplication::translate("MainWindow", "Switch To\n"
 "Floating Point Mode", nullptr));
         label->setText(QCoreApplication::translate("MainWindow", "Binary", nullptr));
@@ -336,6 +353,7 @@ public:
         hexToDec_i->setText(QCoreApplication::translate("MainWindow", "Convert To Dec", nullptr));
         label_5->setText(QString());
         not_i->setText(QCoreApplication::translate("MainWindow", "NOT", nullptr));
+        not_i_2->setText(QCoreApplication::translate("MainWindow", "AC", nullptr));
     } // retranslateUi
 
 };

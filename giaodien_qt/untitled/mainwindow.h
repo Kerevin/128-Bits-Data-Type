@@ -63,6 +63,10 @@ private slots:
 
     void on_not_i_clicked();
 
+    void on_not_i_2_clicked();
+
+    void on_not_i_3_clicked();
+
 private:
     Ui::MainWindow *ui;
 };
