@@ -14,4 +14,6 @@ D:\Coding\KienTrucMayTinhVaHopNgu\128 Data Type\Main\Main\QInt.h(66,32): warning
 D:\Coding\KienTrucMayTinhVaHopNgu\128 Data Type\Main\Main\FIle.h(231,1): warning C4267:  '=': conversion from 'size_t' to 'int', possible loss of data
 D:\Coding\KienTrucMayTinhVaHopNgu\128 Data Type\Main\Main\Source.cpp(43,29): warning C4267:  'initializing': conversion from 'size_t' to 'int', possible loss of data
 D:\Coding\KienTrucMayTinhVaHopNgu\128 Data Type\Main\Main\Source.cpp(137,24): warning C4267:  '=': conversion from 'size_t' to 'int', possible loss of data
+D:\Coding\KienTrucMayTinhVaHopNgu\128 Data Type\Main\Main\Source.cpp(565,25): warning C4267:  'initializing': conversion from 'size_t' to 'int', possible loss of data
+D:\Coding\KienTrucMayTinhVaHopNgu\128 Data Type\Main\Main\Source.cpp(566,25): warning C4267:  'initializing': conversion from 'size_t' to 'int', possible loss of data
   Main.vcxproj -> D:\Coding\KienTrucMayTinhVaHopNgu\128 Data Type\Main\x64\Debug\Main.exe

@@ -28,6 +28,67 @@ void QFloat::printData()
 	printDataMember();
 }
 
+string QFloat::sum(string a, string b)
+{
+	// a + b //
+	int lenA = a.size() - 1;
+	int lenB = b.size() - 1;
+	string result;
+	int temp = 0;
+	while (lenA >= 0 && lenB >= 0)
+	{
+
+		int num = stoi(a.substr(lenA--, 1)) + stoi(b.substr(lenB--, 1)) + temp;
+		temp = num / 10;
+		result.insert(0, to_string(num % 10));
+
+	}
+	while (lenA >= 0)
+	{
+		int num = stoi(a.substr(lenA--, 1)) + temp;
+		temp = num / 10;
+		result.insert(0, to_string(num % 10));
+	}
+	while (lenB >= 0)
+	{
+		int num = stoi(b.substr(lenB--, 1)) + temp;
+		temp = num / 10;
+		result.insert(0, to_string(num % 10));
+	}
+	if (temp > 0)
+	{
+		result.insert(0, to_string(temp));
+	}
+	return result;
+}
+string QFloat::dividedByTwo(string a)
+{
+	// Chia có phần thập phân //
+	string temp = "";
+	int sodu = 0;
+	for (int i = 0; i < a.length(); i++)
+	{
+		if (a[i] != '.')
+		{
+			int num = stoi(a.substr(i, 1));
+			temp += to_string((sodu * 10 + num) / 2);
+			sodu = (num % 2 != 0);
+		}
+		else
+			temp += ".";
+	}
+	if (sodu > 0)
+	{
+		if (temp.find('.') == -1)
+			temp += ".5";
+		else
+			temp += "5";
+	}
+
+	while (temp[0] == '0')
+		temp.erase(0, 1);
+	return temp;
+}
 string QFloat::reduceZeroInBin(string bin)
 {
 	string result = bin;
@@ -58,6 +119,7 @@ string QFloat::multipliedByTwo(string a)
 	return result;
 }
 
+
 string QFloat::contertToFloatingPointFormat()
 {
 	// Binary của phần số nguyên //
@@ -80,17 +142,48 @@ string QFloat::contertToFloatingPointFormat()
 }
 string QFloat::normalizeTheNumber(int& exponent)
 {
-	// Chuẩn hóa số sang dạng số chấm động
+	// Chuẩn hóa số dec sang dạng số chấm động //
+	// Có dạng 1.X * 2 ^ E
 	string binaryFormat = contertToFloatingPointFormat();
+	
+	string temp = binaryFormat;
 	exponent = (binaryFormat.substr(0, binaryFormat.find("."))).size() - 1;
+	int e = -1;
+	if (exponent == -1)
+	{
+		int i = 1;
+		while (temp[i++] == '0')
+		{
+			exponent--;
+
+		}
+	}
+
 	string normalizedBinary = "";
-	for (int i = 1; i <= exponent; i++)
-		normalizedBinary += binaryFormat[i];
-	normalizedBinary += binaryFormat.substr(binaryFormat.find(".") + 1);
+	if (exponent > 0)
+	{
+		// Số mũ dương //
+		// Dời sang phải //
+		for (int i = 1; i <= exponent; i++)
+			normalizedBinary += binaryFormat[i];
+		normalizedBinary += binaryFormat.substr(binaryFormat.find(".") + 1);
+	}
+	else 
+	{
+		// Số mũ âm //
+		// Dời sang trái //
+		for (int i = e; i <= 0; i++)
+		{
+			binaryFormat.erase(0, 1);
+		}
+		normalizedBinary += binaryFormat;
+	}
+	
 	while (normalizedBinary.size() < 112)
 	{
 		normalizedBinary += "0";
 	}
+
 	return normalizedBinary;
 }
 string QFloat::convertIntegalToBin()
@@ -137,11 +230,39 @@ string QFloat::convertFractionalToBin()
 	}
 	return result;
 }
+string QFloat::convertNumberToBin()
+{
+	// 1 bit cho Sign
+	// 15 bits cho số mũ -> K = 2 ^ (14) - 1
+	// 112 bits cho định trị
+
+	bool sign = this->number[0] == '-';
+	int exponent;
+
+
+	string mantissa = normalizeTheNumber(exponent); // Định trị
+
+	// Phần mũ //
+	exponent += 16383; // E = E + K;
+	string binaryOfExponent = QInt(to_string(exponent)).convertDecToBin();
+
+	// Trường hợp dấu âm thì bị thiếu bit nên
+	// thêm bit 0 ở đầu cho đủ 15 bits phần mũ 
+	while (binaryOfExponent.size() < 15)
+		binaryOfExponent.insert(0, "0");
+
+
+
+	string result = to_string(sign); // Thêm dấu 
+
+	result += binaryOfExponent + mantissa;
+	return result;
+}
 
 
 void QFloat::storeDecIntoQFloat()
 {
-	string binary = convertNumbertoBin();
+	string binary = convertNumberToBin();
 	bool sign = binary[0] == '1';
 	for (int i = 3; i > -1; i--)
 	{
@@ -156,13 +277,37 @@ void QFloat::storeDecIntoQFloat()
 	}
 }
 
+string QFloat::convertFractionalBinToDec(string bin)
+{
+	string result = "0";
+	// Chuyển nhị phân của phần thập phân sang lại dec //
+	while (bin[bin.size() - 1] == '0')
+		bin.pop_back();
+	for (int i = 0; i < bin.size(); i++)
+	{
+		string a = bin.substr(i, 1);
+		if (a == "1")
+			for (int j = 0; j < bin.size() - i - 1; j++)
+			{
+				a = this->multipliedByTwo(a);
+			}
+			result = sum(a, result);
+	}
+	
+	for (int i = 0; i < bin.size(); i++)
+	{
+		result = this->dividedByTwo(result);
+	}
+	
+	return result;
+}
 
 string QFloat::convertQFloatToDec()
 {
 	bool sign = (this->data[0] >> 31) & 1;
 	
 	int exponent = ((this->data[0] & 0x7fffffff) >> 16); // Phần mũ
-	exponent -= 16384;
+	exponent -= 16383;
 
 	string mantissa = ""; // Phần định trị
 
@@ -183,127 +328,89 @@ string QFloat::convertQFloatToDec()
 				mantissa += "0";
 	}
 	
-	while (mantissa[mantissa.size() - 1] == '0')
-		mantissa.pop_back();
 
 
 	if (exponent >= 0)
 		mantissa.insert(0, "1");
-
+	else
+	{
+		mantissa.insert(0, "1");
+		for (int i = exponent + 1; i < 0; i++)
+			mantissa.insert(0, "0");
+	}
 		
 
 	string integalPart; // Phần số nguyên
 
 	// Kiểm tra nếu phần mũ dương thì dịch trái, phần nguyên > 0//
-	// Mũ âm thì phần nguyên == 0;
+	// Mũ âm thì phần nguyên == 0; //
 	if (exponent > 0)
+	{
 		integalPart = QInt::convertBinToDec(mantissa.substr(0, exponent + 1));
+		mantissa = mantissa.substr(exponent + 1);
+	}	
 	else
 		integalPart = "0";
-	
-	string fracionalPart = mantissa.substr(exponent + 1); // Phần số thập phân
-	//int pointMark = integalPart.size();
-	int fracionMark = mantissa.size() - 1 - exponent; // Vị trí dấu chấm 
-	//mantissa = QInt::convertBinToDec(mantissa);
-	string fraction = QInt::convertBinToDec(fracionalPart); // Số thập phân
-		
-	for (int i = 0; i < fracionMark; i++)
-	{
-		fraction = QInt::dividedByTwo(fraction);
-		fraction += "0";
-		if (fraction[0] == '0')
-			fraction.erase(0, 1);
-	}
-	if (fraction.size() > 50)
-		fraction = fraction.substr(0, 50);
-	string result = integalPart + "." + fraction;
+
+
+
+	string fracionalPart = this->convertFractionalBinToDec(mantissa); // Phần số thập phân
+
+	string result = integalPart + fracionalPart;
 	
 	if (sign)
-	{
 		result.insert(0, "-");
-	}
+	
+
+
 	return result;
+	
+
 }
 string QFloat::convertBinToDec(string& bin)
 {
 	bool sign = bin[0] == '1';
 
 	int exponent = stoi(QInt::convertBinToDec(bin.substr(1, 15)));// Phần mũ
-	exponent -= 16384;
+	exponent -= 16383;
 	
 	string mantissa = bin.substr(16); // Phần định trị
 
-	while (mantissa[mantissa.size() - 1] == '0')
-		mantissa.pop_back();
 
-
-	if (exponent >= 0)
+	if (exponent > 0)
 		mantissa.insert(0, "1");
-
+	else
+	{
+		mantissa.insert(0, "1");
+		for (int i = exponent + 1; i < 0; i++)
+			mantissa.insert(0, "0");
+	}
 
 
 	string integalPart; // Phần số nguyên
 
 	// Kiểm tra nếu phần mũ dương thì dịch trái, phần nguyên > 0//
-	// Mũ âm thì phần nguyên == 0;
+	// Mũ âm thì phần nguyên == 0; //
 	if (exponent > 0)
+	{
 		integalPart = QInt::convertBinToDec(mantissa.substr(0, exponent + 1));
+		mantissa = mantissa.substr(exponent + 1);
+	}
 	else
 		integalPart = "0";
 
-	string fracionalPart = mantissa.substr(exponent + 1); // Phần số thập phân
-	//int pointMark = integalPart.size();
-	int fracionMark = mantissa.size() - 1 - exponent; // Vị trí dấu chấm 
-	//mantissa = QInt::convertBinToDec(mantissa);
-	string fraction = QInt::convertBinToDec(fracionalPart); // Số thập phân
 
-	for (int i = 0; i < fracionMark; i++)
-	{
-		fraction = QInt::dividedByTwo(fraction);
-		fraction += "0";
-		if (fraction[0] == '0')
-			fraction.erase(0, 1);
-	}
-	if (fraction.size() > 50)
-		fraction = fraction.substr(0, 50);
-	string result = integalPart + "." + fraction;
+
+	string fracionalPart = QFloat().convertFractionalBinToDec(mantissa); // Phần số thập phân
+
+	string result = integalPart + fracionalPart;
 
 	if (sign)
-	{
 		result.insert(0, "-");
-	}
 	return result;
 }
 string QFloat::convertDecToBin(string &dec)
 {
 	QFloat num(dec);
-	return num.convertNumbertoBin();
-}
-string QFloat::convertNumbertoBin()
-{
-	// 1 bit cho Sign
-	// 15 bits cho số mũ -> K = 2 ^ (14) - 1
-	// 112 bits cho định trị
-
-	bool sign = this->number[0] == '-';
-	int exponent;
-
-
-	string mantissa = normalizeTheNumber(exponent); // Định trị
-
-													// Phần mũ //
-	exponent += 16384; // E = E + K;
-	string binaryOfExponent = QInt(to_string(exponent)).convertDecToBin();
-
-	// Trường hợp dấu âm thì bị thiếu bit nên
-	// thêm bit 0 ở đầu cho đủ 15 bits phần mũ 
-	while (binaryOfExponent.size() < 15)
-		binaryOfExponent.insert(0, "0");
-
-
-
-	string result = to_string(sign); // Thêm dấu 
-
-	result += binaryOfExponent + mantissa;
-	return result;
+	return num.convertNumberToBin();
 }

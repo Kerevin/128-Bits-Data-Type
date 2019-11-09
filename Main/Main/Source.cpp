@@ -527,8 +527,71 @@ BigBit storeData(string a)
 	}
 	return result;
 }
-
-
+string dividedByTwo(string a)
+{
+	// Phép chia thực hiện như người chia ngoài nháp :D //
+	string temp = "";
+	int sodu = 0;
+	for (int i = 0; i < a.length(); i++)
+	{
+		if (a[i] != '.')
+		{
+			int num = stoi(a.substr(i, 1));
+			temp += to_string((sodu * 10 + num) / 2);
+			sodu = (num % 2 != 0);
+			
+		}
+		else
+		{
+			temp += ".";
+		}
+	
+	}
+	if (sodu > 0)
+	{
+		if (temp.find('.') == -1)
+			temp += ".5";
+		else
+			temp += "5";
+	}
+	
+	while (temp[0] == '0')
+		temp.erase(0, 1);
+	return temp;
+}
+string sum(string a, string b)
+{
+	// a + b //
+	int lenA = a.size() - 1;
+	int lenB = b.size() - 1;
+	string result;
+	int temp = 0;
+	while (lenA >= 0 && lenB >= 0)
+	{
+	
+		int num = stoi(a.substr(lenA--, 1)) + stoi(b.substr(lenB--, 1)) + temp;
+		temp = num / 10;	
+		result.insert(0, to_string(num % 10));
+		
+	}
+	while (lenA >= 0)
+	{
+		int num = stoi(a.substr(lenA--, 1)) + temp;
+		temp = num / 10;
+		result.insert(0, to_string(num % 10));
+	}
+	while (lenB >= 0)
+	{
+		int num = stoi(b.substr(lenB--, 1)) + temp;
+		temp = num / 10;
+		result.insert(0, to_string(num % 10));
+	}
+	if (temp > 0)
+	{
+		result.insert(0, to_string(temp));
+	}
+	return result;
+}
 int main(int argc, char ** argv)
 {
 	// bit đầu lưu dấu
@@ -541,19 +604,16 @@ int main(int argc, char ** argv)
 	// argv[1] là kiểu QInt hoặc QFloat
 	// argv[2] là file input
 	// argv[3] là file output
-	/**/
+	
 	if (argc < 1)
 		return 0;
-	cout << argc << endl;
+	
 	for (int i = 1; i <= argc; i++)
 		cout << argv[i] << endl;
 	
-	//File a(atoi(argv[1]), argv[2], argv[3]);
-	//a.readFile();
-	
-	/*
-	File a(2, "input2.txt" , "outttt.txt");
-	a.readFile();*/
+	File a(atoi(argv[1]), argv[2], argv[3]);
+	a.readFile();
+
 	cout << endl;
-	
-}		
+	system("pause");
+}		  

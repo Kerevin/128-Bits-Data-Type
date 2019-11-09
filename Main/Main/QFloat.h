@@ -21,7 +21,8 @@ public:
 	string convertIntegalToBin();
 	string contertToFloatingPointFormat();
 	string normalizeTheNumber(int&);
-
+	string sum(string a, string b);
+	virtual string dividedByTwo(string a);
 	virtual void print();
 	virtual void printData();
 
@@ -30,7 +31,8 @@ public:
 	static string convertDecToBin(string &dec);
 	static string convertBinToDec(string& bin);
 
+	virtual string convertFractionalBinToDec(string bin);
 	virtual string convertQFloatToDec();
-	virtual string convertNumbertoBin();
+	virtual string convertNumberToBin();
 
 };
