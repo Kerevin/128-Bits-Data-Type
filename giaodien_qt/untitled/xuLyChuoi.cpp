@@ -8,7 +8,7 @@ string convertStringToChar(string a)
     temp_s += temp_c;
     return temp_s;
 }
-
+// tra ve vi tri cua dau dau tien cua string
 int findFirstOpPos(string truyenVao)
 {
     for (int i = 1; i < truyenVao.size(); i++)
@@ -20,7 +20,7 @@ int findFirstOpPos(string truyenVao)
         }
     return -1;
 }
-
+// lay ky tu dau
 char getFirstOp(string truyenVao)
 {
     for (int i = 1; i < truyenVao.size(); i++)
@@ -32,6 +32,7 @@ char getFirstOp(string truyenVao)
         }
     return ' ';
 }
+// tra ve dau toan tu
 string getOp(string truyenVao, string &num1, string &num2) {
     // a= so thu nhat
     // b la so thu 2

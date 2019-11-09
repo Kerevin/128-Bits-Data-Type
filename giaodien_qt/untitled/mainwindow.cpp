@@ -309,7 +309,7 @@ void MainWindow::on_hexScreen_i_textChanged()
 {
     hexScreen = ui->hexScreen_i->toPlainText().toStdString();
 }
-
+// dau "=" o heximal
 void MainWindow::on_equalHex_i_clicked()
 {
     string a, b, result;
@@ -606,7 +606,7 @@ void MainWindow::on_binToDec_f_clicked()
         }
     }
 }
-
+// get noi dung nhap o decimal vao string decScreen
 void MainWindow::on_decScreen_f_textChanged()
 {
     decScreen_f = ui->decScreen_f->toPlainText().toStdString();
@@ -622,6 +622,7 @@ void MainWindow::on_decToBin_f_clicked()
         ui->binScreen_f->setText(QString::fromStdString(result));
     }
 }
+// nut Not o QInt
 void MainWindow::on_not_i_clicked()
 {
     string result;
@@ -657,7 +658,7 @@ void MainWindow::on_not_i_clicked()
         }
     }
 }
-
+// nut AC o QInt
 void MainWindow::on_not_i_2_clicked()
 {
     ui->binScreen_i->clear();
@@ -667,7 +668,7 @@ void MainWindow::on_not_i_2_clicked()
     decScreen.clear();
     hexScreen.clear();
 }
-
+// nut AC o QFloat
 void MainWindow::on_not_i_3_clicked()
 {
     ui->binScreen_f->clear();
