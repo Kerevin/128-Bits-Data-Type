@@ -38,6 +38,9 @@ void MainWindow::on_equalBin_i_clicked()
     if(!checkSyntaxBin(binScreen))
         ui->binScreen_i->setText("Syntax Error");
     else{
+        try {
+
+
         if(getOp(binScreen,a,b) == "+"){ // cong
             x = QInt::convertBinToQInt(a);
             y = QInt::convertBinToQInt(b);
@@ -137,6 +140,11 @@ void MainWindow::on_equalBin_i_clicked()
         }
         ui->binScreen_i->setText(QString::fromStdString(result_b));
         result_b.clear();
+    }
+    catch(const std::exception &e)
+    {
+        ui->binScreen_i->setText("error");
+    }
     }
 }
 // bin2dec
@@ -587,8 +595,15 @@ void MainWindow::on_binToDec_f_clicked()
     if(!checkSyntaxBin(binScreen_f))
         ui->binScreen_f->setText("Syntax Error");
     else{
-        result = QFloat::convertBinToDec(binScreen_f);
-        ui->decScreen_f->setText(QString::fromStdString(result));
+        try {
+            result = QFloat::convertBinToDec(binScreen_f);
+            ui->decScreen_f->setText(QString::fromStdString(result));
+        }
+        catch(const std::exception &e)
+        {
+
+            ui->decScreen_f->setText("Invalid Syntax");
+        }
     }
 }
 
