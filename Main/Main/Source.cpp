@@ -608,10 +608,10 @@ int main(int argc, char ** argv)
 	if (argc < 1)
 		return 0;
 	
-	for (int i = 1; i <= argc; i++)
-		cout << argv[i] << endl;
+	/*for (int i = 1; i <= argc; i++)
+		cout << argv[i] << endl;*/
 	
-	File a(atoi(argv[1]), argv[2], argv[3]);
+	File a(atoi(argv[1]), string(argv[2]), string(argv[3]));
 	a.readFile();
 
 	cout << endl;

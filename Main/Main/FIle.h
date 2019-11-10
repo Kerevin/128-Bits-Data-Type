@@ -34,7 +34,7 @@ public:
 	void convert(vector <string>& s)
 	{
 		string result;
-		if (this->type == 1)
+		if (this->type == 1)		//type = 1 thì chuyển sang QInt
 		{
 		
 			// Chuyển hệ 2 sang hệ X 
