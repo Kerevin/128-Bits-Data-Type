@@ -19,6 +19,7 @@ bool isOp(char a) {
         return true;
     return false;
 }
+// kiem tra noi dung nhap o binary
 bool checkSyntaxBin(string truyenVao) {
     int countOp = 0;
     if (isOp(truyenVao[truyenVao.size() - 1]))
@@ -40,6 +41,7 @@ bool checkSyntaxBin(string truyenVao) {
     }
     return true;
 }
+// kiem tra noi dung nhap o decimal ben Qint
 bool checkSyntaxDecInt(string truyenVao) {
     int countOp = 0;
     if (isOp(truyenVao[truyenVao.size() - 1]))
@@ -61,6 +63,7 @@ bool checkSyntaxDecInt(string truyenVao) {
     }
     return true;
 }
+// kiem tra noi dung nhap o decimal ben Qfloat
 bool checkSyntaxDecFloat(string &truyenVao) {
     for (int i = 1; i < truyenVao.size(); i++) {
         if (isHex(truyenVao[i - 1]))
@@ -83,6 +86,7 @@ bool checkSyntaxDecFloat(string &truyenVao) {
     }
     return true;
 }
+// kiem tra noi dung nhap o heximal 
 bool checkSyntaxHex(string &truyenVao) {
     int countOp = 0;
     if (isOp(truyenVao[truyenVao.size() - 1]))
