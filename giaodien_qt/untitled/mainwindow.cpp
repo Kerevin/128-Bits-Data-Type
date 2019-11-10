@@ -38,6 +38,9 @@ void MainWindow::on_equalBin_i_clicked()
     if(!checkSyntaxBin(binScreen))
         ui->binScreen_i->setText("Syntax Error");
     else{
+        try {
+
+
         if(getOp(binScreen,a,b) == "+"){ // cong
             x = QInt::convertBinToQInt(a);
             y = QInt::convertBinToQInt(b);
@@ -59,8 +62,13 @@ void MainWindow::on_equalBin_i_clicked()
         else if(getOp(binScreen,a,b) == "/"){ // chia
             x = QInt::convertBinToQInt(a);
             y = QInt::convertBinToQInt(b);
-            r = x / y;
-            result_b = r.convertDecToBin();
+            QInt z("0");
+            if(y.operator==(z))
+                result_b = "Math Error";
+            else{
+                r = x / y;
+                result_b = r.convertDecToBin();
+            }
         }
         else if(getOp(binScreen,a,b) == "<"){ // so sanh be hon
             x = QInt::convertBinToQInt(a);
@@ -90,6 +98,14 @@ void MainWindow::on_equalBin_i_clicked()
             x = QInt::convertBinToQInt(a);
             y = QInt::convertBinToQInt(b);
             if(x.operator>=(y))
+                result_b = "TRUE";
+            else
+                result_b = "FALSE";
+        }
+        else if(getOp(binScreen,a,b) == "=="){ // so sanh lon hon hoac bang
+            x = QInt::convertBinToQInt(a);
+            y = QInt::convertBinToQInt(b);
+            if(x.operator==(y))
                 result_b = "TRUE";
             else
                 result_b = "FALSE";
@@ -125,6 +141,11 @@ void MainWindow::on_equalBin_i_clicked()
         ui->binScreen_i->setText(QString::fromStdString(result_b));
         result_b.clear();
     }
+    catch(const std::exception &e)
+    {
+        ui->binScreen_i->setText("error");
+    }
+    }
 }
 // bin2dec
 void MainWindow::on_binToDec_i_clicked()
@@ -156,97 +177,110 @@ void MainWindow::on_decScreen_i_textChanged()
 // dau"=" o decimal
 void MainWindow::on_equalDec_i_clicked()
 {
-    string a, b, result;
-    QInt r;
-    if(!checkSyntaxDecInt(decScreen))
-        ui->decScreen_i->setText("Syntax Error");
-    else{
-        if(getOp(decScreen,a,b) == "+"){ // cong
-            QInt x(a);
-            QInt y(b);
-            r = x + y;
-            result = r.convertQIntToDec();
+        string a, b, result;
+        QInt r;
+        if(!checkSyntaxDecInt(decScreen))
+            ui->decScreen_i->setText("Syntax Error");
+        else{
+            if(getOp(decScreen,a,b) == "+"){ // cong
+                QInt x(a);
+                QInt y(b);
+                r = x + y;
+                result = r.convertQIntToDec();
+            }
+            else if(getOp(decScreen,a,b) == "-"){ // tru
+                QInt x(a);
+                QInt y(b);
+                r = x - y;
+                result = r.convertQIntToDec();
+            }
+            else if(getOp(decScreen,a,b) == "*"){ // nhan
+                QInt x(a);
+                QInt y(b);
+                r = x * y;
+                result = r.convertQIntToDec();
+            }
+            else if(getOp(decScreen,a,b) == "/"){ // chia
+                QInt x(a);
+                QInt y(b);
+                QInt z("0");
+                if(y.operator==(z))
+                    result = "Math Error";
+                else{
+                    r = x / y;
+                    result = r.convertQIntToDec();
+                }
+            }
+            else if(getOp(decScreen,a,b) == "<"){ // so sanh be hon
+                QInt x(a);
+                QInt y(b);
+                if(x.operator<(y))
+                    result = "TRUE";
+                else
+                    result = "FALSE";
+            }
+            else if(getOp(decScreen,a,b) == ">"){ // so sanh lon hon
+                QInt x(a);
+                QInt y(b);
+                if(x.operator>(y))
+                    result = "TRUE";
+                else
+                    result = "FALSE";
+            }
+            else if(getOp(decScreen,a,b) == "<="){ // so sanh be hon hoac bang
+                QInt x(a);
+                QInt y(b);
+                if(x.operator<=(y))
+                    result = "TRUE";
+                else
+                    result = "FALSE";
+            }
+            else if(getOp(decScreen,a,b) == ">="){ // so sanh lon hon hoac bang
+                QInt x(a);
+                QInt y(b);
+                if(x.operator>=(y))
+                    result = "TRUE";
+                else
+                    result = "FALSE";
+            }
+            else if(getOp(decScreen,a,b) == "=="){ // so sanh lon hon hoac bang
+                QInt x(a);
+                QInt y(b);
+                if(x.operator==(y))
+                    result = "TRUE";
+                else
+                    result = "FALSE";
+            }
+            else if(getOp(decScreen,a,b) == "<<"){
+                QInt x(a);
+                r = x.operator<<(stoi(b));
+                result = r.convertQIntToDec();
+            }
+            else if(getOp(decScreen,a,b) == ">>"){
+                QInt x(a);
+                r = x.operator>>(stoi(b));
+                result = r.convertQIntToDec();
+            }
+            else if(getOp(decScreen,a,b) == "&"){
+                QInt x(a);
+                QInt y(b);
+                r = x.operator&(y);
+                result = r.convertQIntToDec();
+            }
+            else if(getOp(decScreen,a,b) == "|"){
+                QInt x(a);
+                QInt y(b);
+                r = x.operator|(y);
+                result = r.convertQIntToDec();
+            }
+            else if(getOp(decScreen,a,b) == "^"){
+                QInt x(a);
+                QInt y(b);
+                r = x.operator^(y);
+                result = r.convertQIntToDec();
+            }
+            ui->decScreen_i->setText(QString::fromStdString(result));
         }
-        else if(getOp(decScreen,a,b) == "-"){ // tru
-            QInt x(a);
-            QInt y(b);
-            r = x - y;
-            result = r.convertQIntToDec();
-        }
-        else if(getOp(decScreen,a,b) == "*"){ // nhan
-            QInt x(a);
-            QInt y(b);
-            r = x * y;
-            result = r.convertQIntToDec();
-        }
-        else if(getOp(decScreen,a,b) == "/"){ // chia
-            QInt x(a);
-            QInt y(b);
-            r = x / y;
-            result = r.convertQIntToDec();
-        }
-        else if(getOp(decScreen,a,b) == "<"){ // so sanh be hon
-            QInt x(a);
-            QInt y(b);
-            if(x.operator<(y))
-                result = "TRUE";
-            else
-                result = "FALSE";
-        }
-        else if(getOp(decScreen,a,b) == ">"){ // so sanh lon hon
-            QInt x(a);
-            QInt y(b);
-            if(x.operator>(y))
-                result = "TRUE";
-            else
-                result = "FALSE";
-        }
-        else if(getOp(decScreen,a,b) == "<="){ // so sanh be hon hoac bang
-            QInt x(a);
-            QInt y(b);
-            if(x.operator<=(y))
-                result = "TRUE";
-            else
-                result = "FALSE";
-        }
-        else if(getOp(decScreen,a,b) == ">="){ // so sanh lon hon hoac bang
-            QInt x(a);
-            QInt y(b);
-            if(x.operator>=(y))
-                result = "TRUE";
-            else
-                result = "FALSE";
-        }
-        else if(getOp(decScreen,a,b) == "<<"){
-            QInt x(a);
-            r = x.operator<<(stoi(b));
-            result = r.convertQIntToDec();
-        }
-        else if(getOp(decScreen,a,b) == ">>"){
-            QInt x(a);
-            r = x.operator>>(stoi(b));
-            result = r.convertQIntToDec();
-        }
-        else if(getOp(decScreen,a,b) == "&"){
-            QInt x(a);
-            QInt y(b);
-            r = x.operator&(y);
-            result = r.convertQIntToDec();
-        }
-        else if(getOp(decScreen,a,b) == "|"){
-            QInt x(a);
-            QInt y(b);
-            r = x.operator|(y);
-            result = r.convertQIntToDec();
-        }
-        else if(getOp(decScreen,a,b) == "^"){
-            QInt x(a);
-            QInt y(b);
-            r = x.operator^(y);
-            result = r.convertQIntToDec();
-        }
-        ui->decScreen_i->setText(QString::fromStdString(result));
-    }
 }
 
 void MainWindow::on_decToBin_i_clicked()
@@ -304,8 +338,13 @@ void MainWindow::on_equalHex_i_clicked()
         else if(getOp(hexScreen,a,b) == "/"){ // chia
             QInt x(QInt::convertHexToDec(a));
             QInt y(QInt::convertHexToDec(b));
-            r = x / y;
-            result = QInt::convertDecToHex(r.convertQIntToDec());
+            QInt z("0");
+            if(y.operator==(z))
+                result = "Math Error";
+            else{
+                r = x / y;
+                result = QInt::convertDecToHex(r.convertQIntToDec());
+            }
         }
         else if(getOp(hexScreen,a,b) == "<"){ // so sanh be hon
             QInt x(QInt::convertHexToDec(a));
@@ -335,6 +374,14 @@ void MainWindow::on_equalHex_i_clicked()
             QInt x(QInt::convertHexToDec(a));
             QInt y(QInt::convertHexToDec(b));
             if(x.operator>=(y))
+                result = "TRUE";
+            else
+                result = "FALSE";
+        }
+        else if(getOp(hexScreen,a,b) == "=="){ // so sanh lon hon hoac bang
+            QInt x(QInt::convertHexToDec(a));
+            QInt y(QInt::convertHexToDec(b));
+            if(x.operator==(y))
                 result = "TRUE";
             else
                 result = "FALSE";
@@ -548,8 +595,15 @@ void MainWindow::on_binToDec_f_clicked()
     if(!checkSyntaxBin(binScreen_f))
         ui->binScreen_f->setText("Syntax Error");
     else{
-        result = QFloat::convertBinToDec(binScreen_f);
-        ui->decScreen_f->setText(QString::fromStdString(result));
+        try {
+            result = QFloat::convertBinToDec(binScreen_f);
+            ui->decScreen_f->setText(QString::fromStdString(result));
+        }
+        catch(const std::exception &e)
+        {
+
+            ui->decScreen_f->setText("Invalid Syntax");
+        }
     }
 }
 

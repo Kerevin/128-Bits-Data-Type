@@ -604,7 +604,7 @@ int main(int argc, char ** argv)
 	// argv[1] là kiểu QInt hoặc QFloat
 	// argv[2] là file input
 	// argv[3] là file output
-	
+	/*
 	if (argc < 1)
 		return 0;
 	
@@ -613,7 +613,12 @@ int main(int argc, char ** argv)
 	
 	File a(atoi(argv[1]), argv[2], argv[3]);
 	a.readFile();
+	*/
 
+	QFloat a("232313.0001");
+	cout << a.convertNumberToBin() << endl;
+
+	cout << a.convertQFloatToDec();
 	cout << endl;
 	system("pause");
 }		  

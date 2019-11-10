@@ -145,22 +145,21 @@ string QFloat::normalizeTheNumber(int& exponent)
 	// Chuẩn hóa số dec sang dạng số chấm động //
 	// Có dạng 1.X * 2 ^ E
 	string binaryFormat = contertToFloatingPointFormat();
-	
+
 	string temp = binaryFormat;
 	exponent = (binaryFormat.substr(0, binaryFormat.find("."))).size() - 1;
-	int e = -1;
 	if (exponent == -1)
 	{
 		int i = 1;
 		while (temp[i++] == '0')
 		{
 			exponent--;
-
+			
 		}
 	}
 
 	string normalizedBinary = "";
-	if (exponent > 0)
+	if (exponent >= 0)
 	{
 		// Số mũ dương //
 		// Dời sang phải //
@@ -172,10 +171,8 @@ string QFloat::normalizeTheNumber(int& exponent)
 	{
 		// Số mũ âm //
 		// Dời sang trái //
-		for (int i = e; i <= 0; i++)
-		{
-			binaryFormat.erase(0, 1);
-		}
+		binaryFormat.erase(0, 1);
+		binaryFormat.erase(0, -exponent);
 		normalizedBinary += binaryFormat;
 	}
 	
@@ -183,7 +180,6 @@ string QFloat::normalizeTheNumber(int& exponent)
 	{
 		normalizedBinary += "0";
 	}
-
 	return normalizedBinary;
 }
 string QFloat::convertIntegalToBin()
@@ -280,9 +276,13 @@ void QFloat::storeDecIntoQFloat()
 string QFloat::convertFractionalBinToDec(string bin)
 {
 	string result = "0";
+	if (bin.find('1') == -1)
+		return ".0";
 	// Chuyển nhị phân của phần thập phân sang lại dec //
 	while (bin[bin.size() - 1] == '0')
 		bin.pop_back();
+	
+	
 	for (int i = 0; i < bin.size(); i++)
 	{
 		string a = bin.substr(i, 1);
@@ -308,7 +308,7 @@ string QFloat::convertQFloatToDec()
 	
 	int exponent = ((this->data[0] & 0x7fffffff) >> 16); // Phần mũ
 	exponent -= 16383;
-
+	cout << exponent << endl;
 	string mantissa = ""; // Phần định trị
 
 	for (int j = 15; j >=0; j--)
@@ -344,7 +344,7 @@ string QFloat::convertQFloatToDec()
 
 	// Kiểm tra nếu phần mũ dương thì dịch trái, phần nguyên > 0//
 	// Mũ âm thì phần nguyên == 0; //
-	if (exponent > 0)
+	if (exponent >= 0)
 	{
 		integalPart = QInt::convertBinToDec(mantissa.substr(0, exponent + 1));
 		mantissa = mantissa.substr(exponent + 1);
@@ -369,6 +369,8 @@ string QFloat::convertQFloatToDec()
 }
 string QFloat::convertBinToDec(string& bin)
 {
+
+		
 	bool sign = bin[0] == '1';
 
 	int exponent = stoi(QInt::convertBinToDec(bin.substr(1, 15)));// Phần mũ

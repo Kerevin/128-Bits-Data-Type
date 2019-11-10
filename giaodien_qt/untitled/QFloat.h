@@ -6,31 +6,33 @@ class QFloat : public QNumber
 {
 private:
 
-	void storeDecIntoQFloat();
-	string multipliedByTwo(string num);
+    void storeDecIntoQFloat();
+    string multipliedByTwo(string num);
 
 
 
 public:
-	QFloat();
-	QFloat(string number);
-	QFloat(QFloat const& p);
-	~QFloat();
+    QFloat();
+    QFloat(string number);
+    QFloat(QFloat const& p);
+    ~QFloat();
 
-	string convertFractionalToBin();
-	string convertIntegalToBin();
-	string contertToFloatingPointFormat();
-	string normalizeTheNumber(int&);
+    string convertFractionalToBin();
+    string convertIntegalToBin();
+    string contertToFloatingPointFormat();
+    string normalizeTheNumber(int&);
+    string sum(string a, string b);
+    virtual string dividedByTwo(string a);
+    virtual void print();
+    virtual void printData();
 
-	virtual void print();
-	virtual void printData();
+    virtual string reduceZeroInBin(string);
 
-	virtual string reduceZeroInBin(string);
+    static string convertDecToBin(string &dec);
+    static string convertBinToDec(string& bin);
 
-	static string convertDecToBin(string &dec);
-	static string convertBinToDec(string& bin);
-
-	virtual string convertQFloatToDec();
-	virtual string convertNumbertoBin();
+    virtual string convertFractionalBinToDec(string bin);
+    virtual string convertQFloatToDec();
+    virtual string convertNumberToBin();
 
 };
