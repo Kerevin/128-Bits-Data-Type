@@ -615,10 +615,8 @@ int main(int argc, char ** argv)
 	a.readFile();
 	*/
 
-	QFloat a("232313.0001");
-	cout << a.convertNumberToBin() << endl;
 
-	cout << a.convertQFloatToDec();
+
 	cout << endl;
 	system("pause");
 }		  
