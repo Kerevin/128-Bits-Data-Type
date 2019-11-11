@@ -12,8 +12,6 @@ private:
 public:
 	File()
 	{
-		readData.open("input.txt", ios::in);
-		writeData.open("output.txt", ios::out);
 		this->type = 0;
 	}
 	File(int type, string fileInput, string fileOutput)
@@ -33,6 +31,7 @@ public:
 
 	void convert(vector <string>& s)
 	{
+		// Chuyển đổi từ các hệ với nhau //
 		string result;
 		if (this->type == 1)		//type = 1 thì chuyển sang QInt
 		{
@@ -80,12 +79,12 @@ public:
 			}
 			
 		}
-		cout << result << endl;
 		writeFile(result);
 	}
 
 	void calculate(vector <string>& s)
 	{
+		// Phần tính toán của QInt //
 		QInt result;
 		QInt *a, *b;
 		int comparision = -1;
@@ -203,14 +202,17 @@ public:
 
 	void preProcess(vector <string> s)
 	{
+		// Tiền xử lý //
+		// Xác định chức năng thực hiện //
+		// Chuyển đổi hoặc tính toán //
 		if (s.size() > 1)
 			if (isdigit(s[2][0]) || (s[2][0] == '-' && isdigit(s[2][1])) )
 			{
-				convert(s);
+				this->convert(s);
 			}
 			else if (this->type == 1)
 			{
-				calculate(s);
+				this->calculate(s);
 			}
 	}
 
@@ -224,6 +226,8 @@ public:
 
 	vector <string> split(string s)
 	{
+		// Tách một chuỗi từ các dòng trong file input để xử lý //
+
 		vector <string> consequence;
 		int pre = 0, pos = 0;
 		while (pos != -1)
@@ -240,15 +244,15 @@ public:
 
 	void readFile()
 	{
+		// Đọc file từ file input //
 		if (readData)
 		{
 			do
 			{
 				string s;
 				getline(readData, s);
-				cout << s << endl;
 				if (s.size() > 0)
-					preProcess(split(s));
+					this->preProcess(split(s));
 
 			} while (!readData.eof());
 		}
@@ -262,7 +266,6 @@ public:
 	void writeFile(string s)
 	{
 		writeData << s << endl;
-
 	}
 
 };
