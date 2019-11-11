@@ -20,9 +20,9 @@ public:
 	{
 		
 		this->type = type;
-		readData.open(fileInput);
-		writeData.open(fileOutput);
-
+		readData.open(fileInput, ios::in);
+		writeData.open(fileOutput, ios::out);
+	
 	}
 	~File()
 	{
@@ -34,7 +34,7 @@ public:
 	void convert(vector <string>& s)
 	{
 		string result;
-		if (this->type == 1)
+		if (this->type == 1)		//type = 1 thì chuyển sang QInt
 		{
 		
 			// Chuyển hệ 2 sang hệ X 
@@ -240,15 +240,21 @@ public:
 
 	void readFile()
 	{
-
-		do
+		if (readData)
 		{
-			string s;
-			getline(readData, s);
-			if (s.size() > 0)
-				preProcess(split(s));
+			do
+			{
+				string s;
+				getline(readData, s);
+				if (s.size() > 0)
+					preProcess(split(s));
 
-		} while (!readData.eof());
+			} while (!readData.eof());
+		}
+			
+		else
+			cout << "Couldn't open file..." << endl;
+
 		cout << "Finished! " << endl;
 	}
 

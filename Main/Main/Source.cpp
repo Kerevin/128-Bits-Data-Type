@@ -601,21 +601,17 @@ int main(int argc, char ** argv)
 	// 170141183460469231731687303715884105728 = 2 ^ 127
 	// 340282366920938463463374607431768211456 = 2 ^ 128
 	
-	// argv[1] là kiểu QInt hoặc QFloat
+	// argv[1] là kiểu QInt hoặc QFloat -> 1 hoặc 2
 	// argv[2] là file input
 	// argv[3] là file output
-	/*
-	if (argc < 1)
-		return 0;
-	
-	for (int i = 1; i <= argc; i++)
-		cout << argv[i] << endl;
-	
-	File a(atoi(argv[1]), argv[2], argv[3]);
-	a.readFile();
-	*/
 
+	if (argc > 1)
+	{
 
+		File a(atoi(argv[1]), string(argv[2]), string(argv[3]));
+		a.readFile();
+
+	}
 
 	cout << endl;
 	system("pause");
