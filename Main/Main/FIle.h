@@ -62,7 +62,7 @@ public:
 					result = QInt::convertHexToDec(s[2]);
 			}
 		}
-		else
+		else // type = 2 thì chuyển đổi QFloat
 		{
 
 			// Chuyển hệ 2 sang hệ X 
@@ -80,7 +80,7 @@ public:
 			}
 			
 		}
-
+		cout << result << endl;
 		writeFile(result);
 	}
 
@@ -94,8 +94,7 @@ public:
 			// Số scan vào là nhị phân //
 			a = new QInt(QInt::convertBinToQInt(s[1]));
 			b = new QInt(QInt::convertBinToQInt(s[3]));
-			//a =  QInt::convertBinToQInt(s[1]);
-			//b =  QInt::convertBinToQInt(s[3]);
+	
 		}
 		else if (s[0] == "16")
 		{
@@ -204,14 +203,15 @@ public:
 
 	void preProcess(vector <string> s)
 	{
-		if (isdigit(s[2][0]))
-		{
-			convert(s);
-		}
-		else if (this->type == 1)
-		{
-			calculate(s);
-		}
+		if (s.size() > 1)
+			if (isdigit(s[2][0]) || (s[2][0] == '-' && isdigit(s[2][1])) )
+			{
+				convert(s);
+			}
+			else if (this->type == 1)
+			{
+				calculate(s);
+			}
 	}
 
 	void printString(vector <string> s)
@@ -246,6 +246,7 @@ public:
 			{
 				string s;
 				getline(readData, s);
+				cout << s << endl;
 				if (s.size() > 0)
 					preProcess(split(s));
 
