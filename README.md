@@ -6,9 +6,11 @@ University of Science - HCMC
 ### This project creates two data types in both float and integer stored 128 bits, written in C++.
 
 #### Functions in 128-bit integer type, called QInt
-+ Add / subtract / multiple / divide two QInt types
++ Add / subtract / multiple / divide two QInt numbers
 + Shift left / shift right / rotate left / rotate right 
 + Hex / decimal /binary converter
++ Logical operators: and, xor, not, or 
++ Compare two QInt numbers
 
 #### Functions in 128-bit float type, called QFloat
 + Hex / decimal / binary converter
