@@ -11,6 +11,6 @@ University of Science - HCMC
 + Hex / decimal /binary converter
 
 #### Functions in 128-bit float type, called QFloat
-+ Hex / decimal /binary converter
++ Hex / decimal / binary converter
 
 #### UI for easy uses, created by QT Creator
